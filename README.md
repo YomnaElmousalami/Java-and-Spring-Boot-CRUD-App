@@ -1,3 +1,3 @@
 # Java-and-Spring-Boot-CRUD-App
 
-Just for learning purposes. 
+Just for learning purposes
