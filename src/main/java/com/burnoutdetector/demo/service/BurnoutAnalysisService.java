@@ -1,0 +1,28 @@
+package com.burnoutdetector.demo.service;
+
+import com.burnoutdetector.demo.model.CalendarSummary;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BurnoutAnalysisService {
+
+    public int calculateScore(CalendarSummary summary) {
+        int score = 0;
+
+        if (summary.getTotalMeetings() > 20) score += 30;
+        else if (summary.getTotalMeetings() > 10) score += 15;
+
+        if (summary.getTotalHours() > 20) score += 30;
+        else if (summary.getTotalHours() > 10) score += 15;
+
+        if (summary.getWeekendMeetings() > 0) score += 20;
+
+        if (!summary.getEarliestMeeting().equals("-")) {
+            int hour = Integer.parseInt(summary.getEarliestMeeting().split(":")[0]);
+            if (hour < 8) score += 20;
+        }
+
+        return Math.min(score, 100);
+    }
+
+}

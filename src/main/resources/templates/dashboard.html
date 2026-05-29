@@ -8,11 +8,11 @@
   <body>
     <div>
         <h1>Your Calendar Summary</h1>
-        <p>Meetings this week: 0</p>
-        <p>Hours in meetings: 0</p>
-        <p>Earliest meeting: -</p>
-        <p>Latest meeting: -</p>
-        <p>Weekend meetings: 0</p>
+        <p>Meetings this week: <span th:text="${summary.totalMeetings}">0</span></p>
+        <p>Hours in meetings: <span th:text="${summary.totalHours}">0</span></p>
+        <p>Earliest meeting: <span th:text="${summary.earliestMeeting}">-</span></p>
+        <p>Latest meeting: <span th:text="${summary.latestMeeting}">-</span></p>
+        <p>Weekend meetings: <span th:text="${summary.weekendMeetings}">0</span></p>
         <a href="/report">Analyze My Burnout Risk</a>
         <a href="/dashboard">Back to Dashboard</a>
     </div>
