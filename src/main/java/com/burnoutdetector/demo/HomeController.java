@@ -44,7 +44,11 @@ public class HomeController {
         CalendarSummary summary = calendarService.getCalendarSummary(accessToken);
         int score = burnoutAnalysisService.calculateScore(summary);
         String recommendations = aiService.getRecommendations(summary, score);
+        String scoreColor = score >= 70 ? "#f44336" : score >= 40 ? "#FF9800" : "#4CAF50";
+        String riskLevel = score >= 70 ? "High Risk" : score >= 40 ? "Moderate Risk" : "Low Risk";
         model.addAttribute("score", score);
+        model.addAttribute("scoreColor", scoreColor);
+        model.addAttribute("riskLevel", riskLevel);
         model.addAttribute("recommendations", recommendations);
         return "report";
     }

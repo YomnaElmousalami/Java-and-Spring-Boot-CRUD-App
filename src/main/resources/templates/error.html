@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Something went wrong</title>
+  </head>
+  <body>
+    <div>
+        <h1>Something went wrong</h1>
+        <p th:text="${error} ?: 'An unexpected error occurred.'">An unexpected error occurred.</p>
+        <p style="color: #888; font-size: 0.95rem;">
+            Make sure Ollama is running and your Google Calendar API is enabled.
+        </p>
+        <div class="nav-links">
+            <a href="/dashboard">Try Again</a>
+            <a href="/">Home</a>
+        </div>
+    </div>
+  </body>
+</html>

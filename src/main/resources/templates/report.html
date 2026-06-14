@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
@@ -8,9 +8,26 @@
   <body>
     <div>
         <h1>Your Burnout Report</h1>
-        <p>Burnout Risk Score: <span th:text="${score}">0</span>/100</p>
+
+        <div class="score-circle"
+             th:classappend="${score >= 70} ? 'score-high' : (${score >= 40} ? 'score-medium' : 'score-low')"
+             th:text="${score}">0</div>
+
+        <div class="score-bar-container">
+            <div class="score-bar"
+                 th:style="'width: ' + ${score} + '%; background: ' + ${scoreColor}"></div>
+        </div>
+        <p class="risk-label" th:text="${riskLevel}">Risk Level</p>
+
         <h2>AI Recommendations</h2>
-        <p th:text="${recommendations}">No recommendations yet. Connect your Google Calendar to get started.</p>
+        <p class="recommendations" th:text="${recommendations}">No recommendations yet.</p>
+
+        <div class="nav-links">
+            <a href="/dashboard">Back to Dashboard</a>
+            <form class="logout-form" th:action="@{/logout}" method="post">
+                <button class="logout-btn" type="submit">Sign Out</button>
+            </form>
+        </div>
     </div>
   </body>
 </html>

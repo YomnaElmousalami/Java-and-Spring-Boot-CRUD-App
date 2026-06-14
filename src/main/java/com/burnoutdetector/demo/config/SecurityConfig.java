@@ -17,6 +17,9 @@ public class SecurityConfig {
             )
             .oauth2Login(oauth2 -> oauth2
                 .defaultSuccessUrl("/dashboard", true)
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/")
             );
         return http.build();
     }

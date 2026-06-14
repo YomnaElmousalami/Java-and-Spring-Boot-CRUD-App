@@ -20,8 +20,13 @@ h1 {
     font-size: clamp(1.5rem, 5vw, 3rem);
 }
 
+h2 {
+    font-size: clamp(1.1rem, 3vw, 1.8rem);
+    margin-top: 30px;
+}
+
 p {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
 }
 
 a {
@@ -30,6 +35,126 @@ a {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
-    margin-top: 20px;
     display: inline-block;
+}
+
+a:hover {
+    background: #222;
+}
+
+/* Score circle */
+.score-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 5px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 10px;
+    font-size: 2.8rem;
+    font-weight: bold;
+}
+
+.score-low  { color: #4CAF50; border-color: #4CAF50; }
+.score-medium { color: #FF9800; border-color: #FF9800; }
+.score-high { color: #f44336; border-color: #f44336; }
+
+/* Score bar */
+.score-bar-container {
+    width: 100%;
+    background: #222;
+    border-radius: 10px;
+    height: 10px;
+    margin: 10px 0 6px;
+    overflow: hidden;
+}
+
+.score-bar {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.risk-label {
+    font-size: 1rem;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+/* AI recommendations */
+.recommendations {
+    white-space: pre-wrap;
+    text-align: left;
+    background: #111;
+    padding: 20px 24px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    line-height: 1.9;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    margin-top: 10px;
+}
+
+/* Navigation row */
+.nav-links {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+/* Sign out button */
+.logout-form {
+    display: inline;
+}
+
+.logout-btn {
+    background: transparent;
+    color: #888;
+    border: 1px solid #555;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+.logout-btn:hover {
+    color: white;
+    border-color: white;
+}
+
+/* Loading overlay */
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.spinner {
+    width: 52px;
+    height: 52px;
+    border: 4px solid #333;
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 1.1rem;
+    color: #aaa;
+    text-align: center;
+    line-height: 1.7;
 }

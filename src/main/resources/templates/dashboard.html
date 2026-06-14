@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
@@ -8,13 +8,29 @@
   <body>
     <div>
         <h1>Your Calendar Summary</h1>
-        <p>Meetings this week: <span th:text="${summary.totalMeetings}">0</span></p>
-        <p>Hours in meetings: <span th:text="${summary.totalHours}">0</span></p>
-        <p>Earliest meeting: <span th:text="${summary.earliestMeeting}">-</span></p>
-        <p>Latest meeting: <span th:text="${summary.latestMeeting}">-</span></p>
-        <p>Weekend meetings: <span th:text="${summary.weekendMeetings}">0</span></p>
-        <a href="/report">Analyze My Burnout Risk</a>
-        <a href="/dashboard">Back to Dashboard</a>
+        <p>Meetings (last 2 weeks): <strong th:text="${summary.totalMeetings}">0</strong></p>
+        <p>Hours in meetings: <strong th:text="${summary.totalHours}">0</strong>h</p>
+        <p>Earliest meeting: <strong th:text="${summary.earliestMeeting}">-</strong></p>
+        <p>Latest meeting: <strong th:text="${summary.latestMeeting}">-</strong></p>
+        <p>Weekend meetings: <strong th:text="${summary.weekendMeetings}">0</strong></p>
+
+        <div class="nav-links">
+            <a href="/report" id="analyze-btn">Analyze My Burnout Risk</a>
+            <form class="logout-form" th:action="@{/logout}" method="post">
+                <button class="logout-btn" type="submit">Sign Out</button>
+            </form>
+        </div>
     </div>
+
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Analyzing your calendar with AI...<br>This may take up to a minute.</p>
+    </div>
+
+    <script>
+        document.getElementById('analyze-btn').addEventListener('click', function() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        });
+    </script>
   </body>
 </html>
