@@ -7,7 +7,7 @@ AI Burnout Detector: a web app where you log in with your Google account, it rea
 
 | Layer | Technology | Version |
 |---|---|---|
-| Language | Java | 21 |
+| Language | Java | 25 |
 | Framework | Spring Boot | 4.0.6 |
 | Auth / Google Login | Spring Security OAuth2 Client | included in Spring Boot 4.0.6 |
 | Calendar Data | Google Calendar API v3 | free |
