@@ -1,4 +1,4 @@
-# Java-and-Spring-Boot-CRUD-App
+# App for Learning
 
 Just for learning purposes: 
 
