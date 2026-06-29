@@ -17,6 +17,9 @@ public class BurnoutAnalysisService {
 
         if (summary.getWeekendMeetings() > 0) score += 20;
 
+        if (summary.getBackToBackMeetings() > 5) score += 20;
+        else if (summary.getBackToBackMeetings() > 2) score += 10;
+
         if (!summary.getEarliestMeeting().equals("-")) {
             int hour = Integer.parseInt(summary.getEarliestMeeting().split(":")[0]);
             if (hour < 8) score += 20;

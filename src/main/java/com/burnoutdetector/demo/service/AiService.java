@@ -21,8 +21,9 @@ public class AiService {
                 - Earliest meeting: %s
                 - Latest meeting: %s
                 - Weekend meetings: %d
+                - Back-to-back meetings: %d
                 - Burnout risk score: %d/100
-                
+
                 Give 3 short, practical recommendations to reduce burnout risk. Be direct and specific.
                 """.formatted(
                 summary.getTotalMeetings(),
@@ -30,6 +31,7 @@ public class AiService {
                 summary.getEarliestMeeting(),
                 summary.getLatestMeeting(),
                 summary.getWeekendMeetings(),
+                summary.getBackToBackMeetings(),
                 score
         );
 
