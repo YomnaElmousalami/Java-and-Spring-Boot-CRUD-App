@@ -14,6 +14,8 @@
         <p>Latest meeting: <strong th:text="${summary.latestMeeting}">-</strong></p>
         <p>Weekend meetings: <strong th:text="${summary.weekendMeetings}">0</strong></p>
         <p>Back-to-back meetings: <strong th:text="${summary.backToBackMeetings}">0</strong></p>
+        <p>Late night meetings (after 7pm): <strong th:text="${summary.lateNightMeetings}">0</strong></p>
+        <p>Days with no 30-min break: <strong th:text="${summary.noBreakDays}">0</strong></p>
 
         <div class="nav-links">
             <a href="/report" id="analyze-btn">Analyze My Burnout Risk</a>

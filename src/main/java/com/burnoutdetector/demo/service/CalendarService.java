@@ -11,8 +11,11 @@ import com.google.api.services.calendar.model.Events;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CalendarService {
@@ -47,9 +50,11 @@ public class CalendarService {
         double totalHours = 0;
         int weekendMeetings = 0;
         int backToBackMeetings = 0;
+        int lateNightMeetings = 0;
         LocalTime earliestTime = null;
         LocalTime latestTime = null;
         long prevEndMs = -1;
+        Map<LocalDate, List<long[]>> meetingsByDay = new LinkedHashMap<>();
 
         for (Event event : events) {
             if (event.getStart().getDateTime() == null) continue;
@@ -63,23 +68,42 @@ public class CalendarService {
             }
             prevEndMs = endMs;
 
-            LocalDateTime start = LocalDateTime.ofInstant(
-                    Instant.ofEpochMilli(startMs), ZoneId.systemDefault());
+            LocalDateTime start = LocalDateTime.ofInstant(Instant.ofEpochMilli(startMs), ZoneId.systemDefault());
+            LocalDateTime end = LocalDateTime.ofInstant(Instant.ofEpochMilli(endMs), ZoneId.systemDefault());
 
             DayOfWeek day = start.getDayOfWeek();
             if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
                 weekendMeetings++;
             }
 
+            if (end.getHour() >= 19) {
+                lateNightMeetings++;
+            }
+
+            meetingsByDay.computeIfAbsent(start.toLocalDate(), k -> new ArrayList<>()).add(new long[]{startMs, endMs});
+
             LocalTime time = start.toLocalTime();
             if (earliestTime == null || time.isBefore(earliestTime)) earliestTime = time;
             if (latestTime == null || time.isAfter(latestTime)) latestTime = time;
         }
 
+        int noBreakDays = 0;
+        for (List<long[]> dayMeetings : meetingsByDay.values()) {
+            if (dayMeetings.size() < 2) continue;
+            boolean hasBreak = false;
+            for (int i = 1; i < dayMeetings.size(); i++) {
+                if (dayMeetings.get(i)[0] - dayMeetings.get(i - 1)[1] >= 30 * 60 * 1000) {
+                    hasBreak = true;
+                    break;
+                }
+            }
+            if (!hasBreak) noBreakDays++;
+        }
+
         String earliest = earliestTime != null ? String.format("%02d:%02d", earliestTime.getHour(), earliestTime.getMinute()) : "-";
         String latest = latestTime != null ? String.format("%02d:%02d", latestTime.getHour(), latestTime.getMinute()) : "-";
 
-        return new CalendarSummary(totalMeetings, Math.round(totalHours * 10) / 10.0, earliest, latest, weekendMeetings, backToBackMeetings);
+        return new CalendarSummary(totalMeetings, Math.round(totalHours * 10) / 10.0, earliest, latest, weekendMeetings, backToBackMeetings, lateNightMeetings, noBreakDays);
     }
 
 }

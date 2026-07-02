@@ -22,6 +22,8 @@ public class AiService {
                 - Latest meeting: %s
                 - Weekend meetings: %d
                 - Back-to-back meetings: %d
+                - Late night meetings (after 7pm): %d
+                - Days with no 30-min break: %d
                 - Burnout risk score: %d/100
 
                 Give 3 short, practical recommendations to reduce burnout risk. Be direct and specific.
@@ -32,6 +34,8 @@ public class AiService {
                 summary.getLatestMeeting(),
                 summary.getWeekendMeetings(),
                 summary.getBackToBackMeetings(),
+                summary.getLateNightMeetings(),
+                summary.getNoBreakDays(),
                 score
         );
 
